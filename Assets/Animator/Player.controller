@@ -139,20 +139,6 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_CallsDirty: 1
---- !u!114 &114209391148211544
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a2fa4ace8b240488e9d0fddd8279ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paramName: isMoving
-  value: 0
 --- !u!114 &114251451086690178
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -265,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paramName: isSword1h_Equip
   value: 1
---- !u!114 &114482458647083194
+--- !u!114 &114487076367744792
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,7 +260,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a2fa4ace8b240488e9d0fddd8279ed, type: 3}
+  m_Script: {fileID: 11500000, guid: cdafbad96fc5eba42858ed3e27d8311e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   paramName: isMoving
@@ -308,6 +294,20 @@ MonoBehaviour:
   paramName: isMoving
   value: 0
 --- !u!114 &114622969638122670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdafbad96fc5eba42858ed3e27d8311e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: isMoving
+  value: 0
+--- !u!114 &114696456313966228
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paramName: isMoving
   value: 0
---- !u!114 &114767260592725906
+--- !u!114 &114763084525154206
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a2fa4ace8b240488e9d0fddd8279ed, type: 3}
+  m_Script: {fileID: 11500000, guid: cdafbad96fc5eba42858ed3e27d8311e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   paramName: isMoving
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paramName: isMoving
   value: 0
---- !u!114 &114851479894548354
+--- !u!114 &114851895981325786
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a2fa4ace8b240488e9d0fddd8279ed, type: 3}
+  m_Script: {fileID: 11500000, guid: cdafbad96fc5eba42858ed3e27d8311e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   paramName: isMoving
@@ -1424,7 +1424,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101796764460172202}
   m_StateMachineBehaviours:
-  - {fileID: 114767260592725906}
+  - {fileID: 114487076367744792}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1880,7 +1880,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101094953833207784}
   m_StateMachineBehaviours:
-  - {fileID: 114482458647083194}
+  - {fileID: 114696456313966228}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1960,7 +1960,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101806609688612758}
   m_StateMachineBehaviours:
-  - {fileID: 114851479894548354}
+  - {fileID: 114851895981325786}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2604,7 +2604,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101164807277974394}
   m_StateMachineBehaviours:
-  - {fileID: 114209391148211544}
+  - {fileID: 114763084525154206}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
