@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 469428}
   - component: {fileID: 3398476}
   - component: {fileID: 2306930}
-  m_Layer: 0
+  - component: {fileID: 3047127601848879208}
+  m_Layer: 9
   m_Name: SM_Prop_Rug_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &469428
 Transform:
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3047127601848879208
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.941017, y: 0.12, z: 2.928609}
+  m_Center: {x: -0.0000038146973, y: 0.05, z: 0.00000047683716}
