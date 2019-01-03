@@ -13,7 +13,6 @@ namespace Tamana
         private Transform target;
 
         public bool canDoConsecutiveAttack;
-        public string ConsucutiveAttack_animName;
 
         private void Start()
         {
@@ -46,9 +45,8 @@ namespace Tamana
         public void DoConsecutiveAttack()
         {
             StopAllCoroutines();
-            animator.CrossFade(ConsucutiveAttack_animName, .2f);
             canDoConsecutiveAttack = false;
-            ConsucutiveAttack_animName = string.Empty;
+            animParam.canDoConsecutiveAttack = true;
         }
 
         private Transform GetTargetWithSmallestAngle()

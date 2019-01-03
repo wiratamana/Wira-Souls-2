@@ -8,7 +8,6 @@ namespace Tamana
     {
         [SerializeField] private float _startTime;
         [SerializeField] private float _endTime;
-        [SerializeField] private string animName;
 
         private Attacking atk { get { return GM.PlayerController.attacking; } }
         private bool active = true;
@@ -17,7 +16,7 @@ namespace Tamana
         private float startTime;
         private float endTime;
 
-        private static System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -41,13 +40,11 @@ namespace Tamana
             {
                 start = true;
                 atk.canDoConsecutiveAttack = true;
-                atk.ConsucutiveAttack_animName = animName;
             }
             else if (elapsedSeconds > endTime)
             {
                 active = false;
                 atk.canDoConsecutiveAttack = false;
-                atk.ConsucutiveAttack_animName = string.Empty;
             }
         }
     }

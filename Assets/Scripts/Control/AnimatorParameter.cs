@@ -59,6 +59,12 @@ namespace Tamana
             get { return animator.GetBool("isHolsterOrEquip"); }
             set { animator.SetBool("isHolsterOrEquip", value); }
         }
+
+        public bool canDoConsecutiveAttack
+        {
+            get { return animator.GetBool("canDoConsecutiveAttack"); }
+            set { animator.SetBool("canDoConsecutiveAttack", value); }
+        }
     }
 }
 
