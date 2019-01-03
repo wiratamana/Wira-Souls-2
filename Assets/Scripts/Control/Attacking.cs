@@ -12,6 +12,9 @@ namespace Tamana
 
         private Transform target;
 
+        public bool canDoConsecutiveAttack;
+        public string ConsucutiveAttack_animName;
+
         private void Start()
         {
             controller = GetComponent<Controller>();
@@ -24,10 +27,12 @@ namespace Tamana
         {
             if (PS4.GetButtonDown(PS4.ButtonName.Triangle))
             {
-                if (animParam.isAttacking || !animParam.isSword1h_Equip)
+                if (!animParam.isSword1h_Equip || (!canDoConsecutiveAttack && animParam.isAttacking))
                     return;
 
-                animator.Play(AnimName.SwordAnimsetPro.Sword1h_Attacks.i01_Attack_Move_slow_L_1);
+                if (canDoConsecutiveAttack)
+                    DoConsecutiveAttack();
+                else animator.Play(AnimName.SwordAnimsetPro.Sword1h_Attacks.i01_Attack_Move_slow_L_1);
                 animParam.isAttacking = true;
                 animParam.isMoving = false;
                 controller.StopRotating();
@@ -36,6 +41,14 @@ namespace Tamana
                 if (target != null)
                     StartCoroutine(RotateTowardTarget());
             }
+        }
+
+        public void DoConsecutiveAttack()
+        {
+            StopAllCoroutines();
+            animator.CrossFade(ConsucutiveAttack_animName, .2f);
+            canDoConsecutiveAttack = false;
+            ConsucutiveAttack_animName = string.Empty;
         }
 
         private Transform GetTargetWithSmallestAngle()
