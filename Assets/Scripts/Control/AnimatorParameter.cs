@@ -65,6 +65,30 @@ namespace Tamana
             get { return animator.GetBool("canDoConsecutiveAttack"); }
             set { animator.SetBool("canDoConsecutiveAttack", value); }
         }
+
+        public bool isStrafing
+        {
+            get { return animator.GetBool("isStrafing"); }
+            set { animator.SetBool("isStrafing", value); }
+        }
+
+        public bool isCannotMove
+        {
+            get { return animator.GetBool("isCannotMove"); }
+            set { animator.SetBool("isCannotMove", value); }
+        }
+
+        public float dirToAnalogX
+        {
+            get { return animator.GetFloat("dirToAnalogX"); }
+            set { animator.SetFloat("dirToAnalogX", value); }
+        }
+
+        public float dirToAnalogY
+        {
+            get { return animator.GetFloat("dirToAnalogY"); }
+            set { animator.SetFloat("dirToAnalogY", value); }
+        }
     }
 }
 

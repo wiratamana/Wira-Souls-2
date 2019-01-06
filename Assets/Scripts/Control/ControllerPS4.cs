@@ -4,15 +4,12 @@ using UnityEngine;
 namespace Tamana
 {
     public class ControllerPS4 : Controller
-    {
-        public Transform analogLeft { private set; get; }
+    {        
         public bool isAnalogLeftMoved { get { return animParam.isLeftAnalogMoving; } }
-
+        
         protected override void Awake()
         {
-            base.Awake();
-
-            InstantiateAnalog();
+            base.Awake();         
         }
 
         protected override void Start()
@@ -35,6 +32,9 @@ namespace Tamana
             MovePathTrail(analogLeft, isAnalogLeftMoved);
 
             equipHolster.DoEquipHolster(PS4.ButtonName.Square);
+
+            if (PS4.GetButtonDown(PS4.ButtonName.L1))
+                strafeMovement.StartStrafe();
         }
 
         private void OnDrawGizmos()
@@ -48,14 +48,7 @@ namespace Tamana
                 for (int i = 0; i < trails.Length; i++)
                     Gizmos.DrawWireSphere(trails[i].rayHitPoint, 0.2f);
             }
-        }
-
-
-        private void InstantiateAnalog()
-        {
-            analogLeft = new GameObject("AnalogLeft").transform;
-            analogLeft.position = GM.PlayerController.transform.position;
-        }
+        }        
 
         private void DoMovementControl()
         {

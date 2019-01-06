@@ -14,6 +14,7 @@ namespace Tamana
 
         public AnimationState animationState { private set; get; }
 
+        public Transform analogLeft { private set; get; }
         public BodyPart bodyPart { private set; get; }
         public Animator animator { private set; get; }
         public ThirdPersonCamera thirdPersonCamera { private set; get; }
@@ -23,6 +24,7 @@ namespace Tamana
         public EquipHolster equipHolster { private set; get; }
         public Attacking attacking { private set; get; }
         public GaugeManager gaugeManager { private set; get; }
+        public StrafeMovement strafeMovement { private set; get; }
 
         public Trail[] trails { private set; get; }
 
@@ -36,7 +38,7 @@ namespace Tamana
         {
             get
             {
-                if (animParam.isAttacking || animParam.isHolsterOrEquip)
+                if (animParam.isCannotMove || animParam.isAttacking || animParam.isHolsterOrEquip)
                 {
                     return false;
                 }
@@ -54,6 +56,7 @@ namespace Tamana
         {
             GM.SetPlayer(this);
             bodyPart = new BodyPart(transform);
+            InstantiateAnalog();
 
             if (animator == null)
             {
@@ -67,6 +70,7 @@ namespace Tamana
             detector = gameObject.AddComponent<Detector>();
             equipHolster = gameObject.AddComponent<EquipHolster>();
             attacking = gameObject.AddComponent<Attacking>();
+            strafeMovement = gameObject.AddComponent<StrafeMovement>();
             gaugeManager = FindObjectOfType<GaugeManager>();
             InstantiateTrails();
         }
@@ -82,6 +86,12 @@ namespace Tamana
         private void OnDrawGizmos()
         {
 
+        }
+
+        private void InstantiateAnalog()
+        {
+            analogLeft = new GameObject("AnalogLeft").transform;
+            analogLeft.position = GM.PlayerController.transform.position;
         }
 
         protected void Move_RunAnimsetBasic(MovingDirection direction)
@@ -107,6 +117,14 @@ namespace Tamana
         }
 
         protected void Move_SwordAnimsetPro(MovingDirection direction)
+        {
+            if (animParam.isStrafing)
+                Move_SwordAnimsetPro_StrafeMovement(direction);
+            else Move_SwordAnimsetPro_NormalMovement(direction);
+        }
+
+        private void Move_SwordAnimsetPro_StrafeMovement(MovingDirection direction) => strafeMovement.PlayeStrafeMovement();
+        private void Move_SwordAnimsetPro_NormalMovement(MovingDirection direction)
         {
             switch (direction)
             {

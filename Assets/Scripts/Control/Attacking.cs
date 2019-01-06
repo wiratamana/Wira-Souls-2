@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Tamana
 {
@@ -9,6 +10,7 @@ namespace Tamana
         private Animator animator;
         private AnimatorParameter animParam;
         private Collider myCollider;
+        private BoxCollider swordCollider;
 
         private Transform target;
 
@@ -49,6 +51,8 @@ namespace Tamana
             animParam.canDoConsecutiveAttack = true;
         }
 
+        public void SetSwordCollider(Transform swordTransform) => swordCollider = swordTransform.GetComponent<BoxCollider>();
+
         private Transform GetTargetWithSmallestAngle()
         {
             var cols = Physics.OverlapSphere(transform.position, 3.0f, GM.LayerUnit);
@@ -79,20 +83,27 @@ namespace Tamana
                 }
         }
 
+        List<AI.Dummy> statuses = new List<AI.Dummy>();
+        AI.Dummy tempDummy;
         private AI.Dummy[] GetTargets()
         {
-            var cols = Physics.OverlapSphere(GM.PlayerController.bodyPart.dummyNeck.position + GM.PlayerController.transform.forward,
-                .5f, GM.LayerUnit);
+            var cols = Physics.OverlapBox(swordCollider.transform.position, swordCollider.bounds.extents,
+                swordCollider.transform.rotation, GM.LayerUnit);
 
             if (cols.Length == 0)
                 return null;
 
-            AI.Dummy[] statuses = new AI.Dummy[cols.Length];
+            statuses.Clear();
+            tempDummy = null;
 
             for (int i = 0; i < cols.Length; i++)
-                statuses[i] = cols[i].GetComponent<AI.Dummy>();
+            {
+                tempDummy = cols[i].GetComponent<AI.Dummy>();
+                if (tempDummy == null) continue;
+                statuses.Add(tempDummy);
+            }
 
-            return statuses;
+            return statuses.ToArray();
         }
 
         private IEnumerator RotateTowardTarget()

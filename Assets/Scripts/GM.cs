@@ -40,6 +40,25 @@ namespace Tamana
                 animParam = animatorParameter;
         }
 
+        private static List<Collider> cols = new List<Collider>();
+        public static Collider[] GetNearbyUnits(float radius)
+        {
+            cols.Clear();
+            cols.AddRange(Physics.OverlapSphere(PlayerController.transform.position, radius, LayerUnit));
+
+            if (cols.Count == 1)
+                return null;
+
+            for(int i = 0; i < cols.Count; i++)
+                if(cols[i].transform == PlayerController.transform)
+                {                    
+                    cols.RemoveAt(i);
+                    break;
+                }
+
+            return cols.ToArray();
+        }
+
         private IEnumerator GetInteractableMessage()
         {
             while(interactableMessage == null)

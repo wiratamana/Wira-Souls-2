@@ -10,6 +10,7 @@ namespace Tamana
         private Animator animator { get { return GM.PlayerController.animator; } }
         private AnimatorParameter animParam { get {return GM.PlayerController.animParam; } }
         private Controller controller { get { return GM.PlayerController; } }
+        private Attacking attacking { get { return GM.PlayerController.attacking; } }
 
         private Transform weapon;
 
@@ -91,6 +92,7 @@ namespace Tamana
 
             weight = 0;
             isActiveRightHandIK = false;
+            attacking.SetSwordCollider(weapon);
         }
     }
 }
