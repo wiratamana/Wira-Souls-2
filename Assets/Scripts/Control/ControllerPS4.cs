@@ -37,6 +37,7 @@ namespace Tamana
                 strafeMovement.StartStrafe();
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if(UnityEditor.EditorApplication.isPlaying)
@@ -48,7 +49,8 @@ namespace Tamana
                 for (int i = 0; i < trails.Length; i++)
                     Gizmos.DrawWireSphere(trails[i].rayHitPoint, 0.2f);
             }
-        }        
+        }
+#endif
 
         private void DoMovementControl()
         {

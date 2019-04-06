@@ -6,18 +6,28 @@ namespace Tamana
 {
     public class FootPlacement : MonoBehaviour
     {
-        private Transform playerTransform { get { return GM.PlayerController.transform; } }
+        private Transform playerTransform;
         private Vector3 playerPos
         {
             get { return playerTransform.position; }
             set { playerTransform.position = value; }
         }
-        private Controller controller { get { return GM.PlayerController; } }
-        private Animator animator { get { return GM.PlayerController.animator; } }
-        private AnimatorParameter animParam { get { return GM.PlayerController.animParam; } }
+        private Animator _animator;
+        private Animator animator
+        {
+            get
+            {
+                if (_animator == null)
+                    _animator = transform.GetComponent<Animator>();
 
-        private Vector3 anklePosL { get { return GM.PlayerController.bodyPart.ankleLeft.position; } }
-        private Vector3 anklePosR { get { return GM.PlayerController.bodyPart.ankleRight.position; } }
+                return _animator;
+            }
+        }
+        private AnimatorParameter animParam { get { return AnimatorParameter.instance; } }
+        private BodyPart bodyPart;
+
+        private Vector3 anklePosL { get { return GM.bodyPart.ankleLeft.position; } }
+        private Vector3 anklePosR { get { return GM.bodyPart.ankleRight.position; } }
 
         private Transform legAnkleL;
         private Transform legAnkleR;
@@ -39,6 +49,10 @@ namespace Tamana
 
         void Start()
         {
+            playerTransform = GameObject.FindWithTag("Player").transform;
+            if (bodyPart == null)
+                bodyPart = new BodyPart(playerTransform);
+
             InstantiateRaycasterLeg();
 
             posAnkleL = legAnkleL.position;
@@ -91,20 +105,20 @@ namespace Tamana
             legToeL = new GameObject("LegToeL Raycaster").transform;
             legToeR = new GameObject("LegToeR Raycaster").transform;
 
-            legAnkleL.position = controller.bodyPart.ankleLeft.position + new Vector3(0, 2, 0);
-            legAnkleR.position = controller.bodyPart.ankleRight.position + new Vector3(0, 2, 0);
+            legAnkleL.position = bodyPart.ankleLeft.position + new Vector3(0, 2, 0);
+            legAnkleR.position = bodyPart.ankleRight.position + new Vector3(0, 2, 0);
 
-            legToeL.position = controller.bodyPart.toeLeft.position + new Vector3(0, 2, 0);
-            legToeR.position = controller.bodyPart.toeRight.position + new Vector3(0, 2, 0);
+            legToeL.position = bodyPart.toeLeft.position + new Vector3(0, 2, 0);
+            legToeR.position = bodyPart.toeRight.position + new Vector3(0, 2, 0);
         }
 
         private void Raycasting()
         {
-            legAnkleL.position = controller.bodyPart.ankleLeft.position + new Vector3(0, 2, 0);
-            legAnkleR.position = controller.bodyPart.ankleRight.position + new Vector3(0, 2, 0);
+            legAnkleL.position = bodyPart.ankleLeft.position + new Vector3(0, 2, 0);
+            legAnkleR.position = bodyPart.ankleRight.position + new Vector3(0, 2, 0);
 
-            legToeL.position = controller.bodyPart.toeLeft.position + new Vector3(0, 2, 0);
-            legToeR.position = controller.bodyPart.toeRight.position + new Vector3(0, 2, 0);
+            legToeL.position = bodyPart.toeLeft.position + new Vector3(0, 2, 0);
+            legToeR.position = bodyPart.toeRight.position + new Vector3(0, 2, 0);
 
             RaycastHit hit;
 

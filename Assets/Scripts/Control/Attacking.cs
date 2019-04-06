@@ -61,13 +61,19 @@ namespace Tamana
                 return null;
 
             Transform nearestTarget = null;
-            int angleToNearestTarget = 181;
+            float angleToNearestTarget = 181.0f;
 
             foreach (Collider c in cols)
+            {
+                var signedAngle = Vector3.Angle(transform.forward, (c.transform.position - transform.position).normalized);
                 if (c == myCollider)
                     continue;
-                else if (Vector3.Angle(transform.forward, (c.transform.position - transform.position).normalized) < angleToNearestTarget)
+                else if (signedAngle < angleToNearestTarget)
+                {
+                    angleToNearestTarget = signedAngle;
                     nearestTarget = c.transform;
+                }
+            }
 
             return nearestTarget;
         }
@@ -83,7 +89,7 @@ namespace Tamana
                 }
         }
 
-        List<AI.Dummy> statuses = new List<AI.Dummy>();
+        List<AI.Dummy> dummies = new List<AI.Dummy>();
         AI.Dummy tempDummy;
         private AI.Dummy[] GetTargets()
         {
@@ -93,17 +99,17 @@ namespace Tamana
             if (cols.Length == 0)
                 return null;
 
-            statuses.Clear();
+            dummies.Clear();
             tempDummy = null;
 
             for (int i = 0; i < cols.Length; i++)
             {
                 tempDummy = cols[i].GetComponent<AI.Dummy>();
                 if (tempDummy == null) continue;
-                statuses.Add(tempDummy);
+                dummies.Add(tempDummy);
             }
 
-            return statuses.ToArray();
+            return dummies.ToArray();
         }
 
         private IEnumerator RotateTowardTarget()

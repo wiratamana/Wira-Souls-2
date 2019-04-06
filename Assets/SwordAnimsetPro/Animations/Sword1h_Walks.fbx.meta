@@ -1,10 +1,10 @@
 fileFormatVersion: 2
 guid: 971c05bc2782d6a4ab995452aa8af824
 labels:
-- Animation
 - Animated
-- Sword
+- Animation
 - Medieval
+- Sword
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:

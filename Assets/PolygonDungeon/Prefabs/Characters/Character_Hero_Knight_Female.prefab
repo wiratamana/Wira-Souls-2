@@ -493,10 +493,10 @@ GameObject:
   m_Component:
   - component: {fileID: 422474}
   - component: {fileID: 9547916}
-  - component: {fileID: 554825404}
   - component: {fileID: 554825407}
   - component: {fileID: 4735752966839208572}
   - component: {fileID: 367340285826933946}
+  - component: {fileID: 2889541783117721063}
   m_Layer: 11
   m_Name: Character_Hero_Knight_Female
   m_TagString: Untagged
@@ -539,20 +539,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &554825404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0378eda5823ce3c46947c5a3c195948e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trailMoveSpeed: 10.49
-  lookSpeed: 9.66
 --- !u!195 &554825407
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -599,6 +585,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19ea373c2cdfff3419c72b474a95c9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2889541783117721063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f877f3bb91c9fbb4081d000433a46887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &133228

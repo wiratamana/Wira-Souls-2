@@ -10,11 +10,26 @@ namespace Tamana
 
         private Transform playerTransform { get { return GM.PlayerController.transform; } }
         private Transform analogTransform { get { return GM.PlayerController.analogLeft; } }
+        private Transform strafeAnalog;
         private Transform target;
+
+        private Vector3 strafeGizmo;
 
         private void Start()
         {
             animator = GetComponent<Animator>();
+            strafeAnalog = InstantiateStrafeAnalog();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(strafeGizmo, Vector3.one);
+        }
+
+        private Transform InstantiateStrafeAnalog()
+        {
+            return new GameObject("StrafeAnalog").transform;
         }
 
         public void PlayeStrafeMovement()
@@ -22,8 +37,6 @@ namespace Tamana
             bool result;
             var signedAngle = GetSignedAngle(out result);
             if (result == false) return;
-
-
         }
 
         private float GetSignedAngle(out bool isSuccess)
@@ -65,13 +78,15 @@ namespace Tamana
             var signedAngle = Vector3.SignedAngle(forward, directionToTarget, Vector3.up);
             var animationName = GetAnimationName(signedAngle);
 
-            if (animationName == string.Empty)
-                return;
+            if (animationName != string.Empty)
+            {
+                animator.Play(animationName);
+                animParam.isCannotMove = true;
+            }
+                
 
             GM.PlayerController.StopRotating();
-            animParam.isCannotMove = true;
             animParam.isMoving = false;
-            animator.Play(animationName);
             target = nearestUnit;
             StartCoroutine(UpdateDirectionToAnalog());
         }
@@ -157,16 +172,26 @@ namespace Tamana
                     break;
                 }
 
-                var camPos = GM.MainCamera.transform.position;
-                var camForward = camPos + GM.MainCamera.transform.forward;
-                var camRight = camPos + GM.MainCamera.transform.right;
-                var lengthForward = (camForward - camPos).sqrMagnitude;
-                var lengthRight = (camRight - camPos).sqrMagnitude;
+                strafeAnalog.position = transform.position;
 
-                animParam.dirToAnalogX = lengthRight * PS4.GetAxis(PS4.AxisName.AnalogLeft_X);
-                animParam.dirToAnalogY = lengthForward * PS4.GetAxis(PS4.AxisName.AnalogLeft_Y);
+                var analogPos = analogTransform.position;
+                var playerPos = playerTransform.position;
+                var targetPos = target.position;
+                analogPos.y = 0;
+                playerPos.y = 0;
+                targetPos.y = 0;
 
-                var dirToTarget = (target.position - playerTransform.position).normalized;
+                var dirToTarget = (target.position - playerPos).normalized;
+
+                var camForward = GM.MainCamera.transform.forward;
+                camForward.y = 0;
+                camForward = Vector3.Normalize(camForward);
+
+                var angle = Vector3.SignedAngle(playerTransform.forward, camForward, Vector3.up);
+
+                animParam.dirToAnalogX = Mathf.Sin(angle) * PS4.GetAxis(PS4.AxisName.AnalogLeft_X);
+                animParam.dirToAnalogY = Mathf.Cos(angle) * PS4.GetAxis(PS4.AxisName.AnalogLeft_Y);
+                                
                 playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation,
                     Quaternion.LookRotation(dirToTarget), 3 * Time.deltaTime);               
 
@@ -180,7 +205,11 @@ namespace Tamana
             while(true)
             {
                 if (!animParam.isStrafing || target == null)
+                {
+                    target = null;
+                    StopAllCoroutines();
                     break;
+                }
 
                 var sqrLength = (target.position - playerTransform.position).sqrMagnitude;
                 if (sqrLength > distance * distance)
@@ -194,5 +223,7 @@ namespace Tamana
                 yield return GM.waitForHalfSecond;
             }
         }
+
+
     }
 }

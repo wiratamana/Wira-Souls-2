@@ -8,9 +8,52 @@ namespace Tamana
 
     public class GM : MonoBehaviour
     {
-        public static Camera MainCamera { private set; get; }
+        private static Camera _mainCamera;
+        public static Camera MainCamera
+        {
+            get
+            {
+                if (_mainCamera == null)
+                    _mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+
+                return _mainCamera;
+            }
+        }
         public static Controller PlayerController { private set; get; }
         public static AnimatorParameter animParam { private set; get; }
+        private static Animator _animator;
+        public static Animator animator
+        {
+            get
+            {
+                if (_animator == null)
+                    _animator = player.GetComponent<Animator>();
+
+                return _animator;
+            }
+        }
+        private static Transform _player;
+        public static Transform player
+        {
+            get
+            {
+                if (_player == null)
+                    _player = GameObject.FindWithTag("Player").transform;
+
+                return _player;
+            }
+        }
+        private static BodyPart _bodyPart;
+        public static BodyPart bodyPart
+        {
+            get
+            {
+                if (_bodyPart == null)
+                    _bodyPart = new BodyPart(player);
+
+                return _bodyPart;
+            }
+        }
 
         public static int LayerGround { get { return LayerMask.GetMask("Ground"); } }
         public static int LayerInteractableObject { get { return LayerMask.GetMask("InteractableObject"); } }
@@ -22,10 +65,9 @@ namespace Tamana
 
         public static InteractableMessage interactableMessage { private set; get; }
 
+
         private void Awake()
         {
-            MainCamera = Camera.main;
-
             StartCoroutine(GetInteractableMessage());
         }
 

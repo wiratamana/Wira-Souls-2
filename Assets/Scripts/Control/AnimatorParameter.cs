@@ -8,6 +8,18 @@ namespace Tamana
     {
         private Animator animator;
 
+        private static AnimatorParameter _instance;
+        public static AnimatorParameter instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new AnimatorParameter(GameObject.FindWithTag("Player").GetComponent<Animator>());
+
+                return _instance;
+            }
+        }
+
         public AnimatorParameter(Animator animator)
         {
             this.animator = animator;
