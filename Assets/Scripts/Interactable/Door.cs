@@ -15,8 +15,8 @@ namespace Tamana
         {
             get
             {
-                if (!isOpening) return "ドアを開ける";
-                else return "ドアを閉める";
+                if (!isOpening) return Localization.GetText("openDoor");
+                else return Localization.GetText("closeDoor");
             }
         }
 
@@ -29,7 +29,7 @@ namespace Tamana
             {
                 if (isPlayerFacingMe) onInteract?.Invoke();
 
-                if (PS4.GetButtonDown(PS4.ButtonName.Circle))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     isMoving = true;
                     isOpening = !isOpening;

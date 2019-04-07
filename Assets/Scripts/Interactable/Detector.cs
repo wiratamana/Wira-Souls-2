@@ -9,7 +9,7 @@ namespace Tamana
         private List<Interactable> interactables { get; } = new List<Interactable>();
         private List<Interactable> interactables_temp { get; } = new List<Interactable>();
 
-        private Vector3 playerPos { get { return GM.PlayerController.transform.position; } }
+        private Vector3 playerPos { get { return GM.player.position; } }
 
         public int numberDetectedObject;
 
@@ -21,8 +21,6 @@ namespace Tamana
 
         private IEnumerator Detect()
         {
-            yield return new WaitUntil(() => GM.PlayerController);
-
             while(true)
             {
                 yield return GM.waitForThirdSecond;
@@ -47,6 +45,8 @@ namespace Tamana
                         if (!foundSame)
                         {
                             var interactable = obj[i].GetComponent<Interactable>();
+                            if (interactable.isMoving)
+                                continue;
                             interactable.enabled = true;
                             interactables_temp.Add(interactable);
                         }

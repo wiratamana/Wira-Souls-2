@@ -6,7 +6,7 @@ namespace Tamana
 {
     public class Interactable : MonoBehaviour
     {
-        protected Transform playerTransform { get { return GM.PlayerController.transform; } }
+        protected Transform playerTransform { get { return GM.player; } }
         protected bool isPlayerFacingMe
         {
             get
@@ -30,6 +30,7 @@ namespace Tamana
         public new Collider collider { private set; get; }
 
         public bool isMoving { protected set; get; }
+        public System.Action onIsMovingValueToFlase;
 
         protected System.Action onInteract { private set; get; }
         protected System.Action onLossInteract { private set; get; }
